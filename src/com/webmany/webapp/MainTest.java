@@ -24,7 +24,7 @@ printAll();
         System.out.println("delete resume 2 ..");
         ARRAY_STORAGE.delete("resume2");
 printAll();
-        System.out.println("there is no such resume..");
+        System.out.println("!!!");
         ARRAY_STORAGE.get("may");
     }
 
