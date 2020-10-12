@@ -1,6 +1,9 @@
 package com.webmany.webapp.storage;
 
 import com.webmany.webapp.model.Resume;
+import org.w3c.dom.ls.LSOutput;
+
+import java.util.Arrays;
 
 /**
  * Array based storage for Resumes
@@ -17,7 +20,7 @@ public class ArrayStorage {
         size = 0;
     }
 
-    public Boolean checkObject(Resume resume) {
+    public boolean checkObject(Resume resume) {
         for (int i = 0; i < size; i++) {
             if(resume.getUuid().equals(storage[i].getUuid())) {
                 return true;
@@ -26,13 +29,12 @@ public class ArrayStorage {
         return false;
     }
 
-    public Boolean checkString(String check) {
+    public boolean checkString(String check) {
         if(size == 0) {
             //  System.out.println("Storage is empty! ");
             return false;
         } else if (size > 0) {
             for (int i = 0; i < size; i++) {
-                //   if(storage[i].getUuid().equals(check)) {
                 if (check.equals(storage[i].getUuid())) {
                     return true;
                 }
@@ -41,87 +43,78 @@ public class ArrayStorage {
         return false;
     }
 
-    public void save(Resume r) {
-        if(size <= 10000) {
-            if(!checkObject(r)) {
-                for(int i = 0; i < storage.length; i++) {
-                    if(storage[i] == null) {
-                        storage[i] = r;
-                        size++;
-                        break;
-                    }
-                }
-            } else {
-                System.out.println();
-                System.out.println("A duplicate is found! ");
+
+    private int getIndex(String uuid) {
+        for(int i = 0; i < size; i++) {
+            if(uuid.equals(storage[i].getUuid())) {
+                return i;
             }
-        } else {
+        }
+        return -1;
+    }
+
+    public void save(Resume resume) {
+        if(size <= storage.length) {    // проверяем на переполненность хранилища
+            if(getIndex(resume.getUuid()) == -1 ) {  // проверяем на дубликат
+                storage[size] = resume;  // кладем резюме в хранилище
+                size++;
+                System.out.println("Saved successfully :) ");
+            } else {   // Дубликат!
+                System.out.println();
+                System.out.println("A duplicate is found! Not saved!! ");
+            }
+        } else {  // Хранилище переполненно, более 10000 записей
             System.out.println("Storage overload! ");
         }
     }
 
     public void update(Resume resume) {
-        for (int i = 0; i < size ; i++) {
-            if(resume.getUuid().equals(storage[i].getUuid())) {
-                storage[i] = resume;
-                System.out.println("update " + storage[i] + " success!");
-                System.out.println();
-                break;
-            } else {
-                System.out.println("Nothing to update! ");
-                System.out.println();
-            }
+        int index = getIndex(resume.getUuid());
+        if(index == -1) {  // -1 нет совпадений
+            System.out.println("Resume (" + resume.getUuid() + ") not exist");
+            System.out.println();
+        } else {
+            storage[index] = resume;
+            System.out.println("Update (" + resume.getUuid() + ") success!");
+            System.out.println();
         }
     }
 
     public Resume get(String uuid) {
-        Resume resume = null;
-
-        if(checkString(uuid)) {
-            for (int i = 0; i < size; i++) {
-//                if (storage[i].getUuid().equals(uuid)) {
-                if(uuid.toLowerCase().equals(storage[i].getUuid())) {
-                    resume = storage[i];
-                    break;
-                }
-            }
+        int index = getIndex(uuid);
+        if(index != -1) {
+            return storage[index];
         } else {
             System.out.println();
-            System.out.println("There is no such resume! ");
+            System.out.println("There is (" + uuid + ") no such resume! ");
             System.out.println();
         }
-        return resume;
+        return null;
     }
 
-    public void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                if (i == size - 1) {
-                    storage[i] = null;
-                } else {
-                    for (int j = i; j < size - 1; j++) {
-                        storage[j] = storage[j + 1];
-                    }
-                }
-            }
+        public void delete(String uuid) {
+        int index = getIndex(uuid);
+        if(index != -1) { //
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
+            System.out.println();
+            System.out.println("Delete (" + uuid + ") successfully! ");
+        } else {
+            System.out.println();
+            System.out.println("There is (" + uuid + ") no such resume! ");
         }
-        storage[size - 1] = null;
-        size--;
     }
 
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
+        /**
+         * @return array, contains only Resumes in storage (without null)
+         */
 
-    public Resume[] getAll() {
-        Resume[] temp = new Resume[size];
-        for (int i = 0; i < size; i++) {
-            temp[i] = storage[i];
+        public Resume[] getAll() {
+           return Arrays.copyOf(storage,size);
         }
-        return temp;
-    }
 
-    public int size() {
-        return size;
+        public int size() {
+            return size;
+        }
     }
-}
