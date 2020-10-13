@@ -1,7 +1,6 @@
 package com.webmany.webapp.storage;
 
 import com.webmany.webapp.model.Resume;
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.Arrays;
 
@@ -9,40 +8,15 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 
-public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+public class ArrayStorage implements Storage{
+    private final int SIZE_STORAGE = 10_000;
+    private Resume[] storage = new Resume[SIZE_STORAGE];
     private int size = 0;
 
     public void clear() {
-        for (int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
+        Arrays.fill(storage,0,size,null);
         size = 0;
     }
-
-    public boolean checkObject(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if(resume.getUuid().equals(storage[i].getUuid())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean checkString(String check) {
-        if(size == 0) {
-            //  System.out.println("Storage is empty! ");
-            return false;
-        } else if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                if (check.equals(storage[i].getUuid())) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
 
     private int getIndex(String uuid) {
         for(int i = 0; i < size; i++) {
@@ -54,16 +28,16 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        if(size <= storage.length) {    // проверяем на переполненность хранилища
-            if(getIndex(resume.getUuid()) == -1 ) {  // проверяем на дубликат
-                storage[size] = resume;  // кладем резюме в хранилище
+        if(size <= storage.length) {                  // проверяем на переполненность хранилища
+            if(getIndex(resume.getUuid()) == -1 ) {   // проверяем на дубликат
+                storage[size] = resume;               // кладем резюме в хранилище
                 size++;
                 System.out.println("Saved successfully :) ");
-            } else {   // Дубликат!
+            } else {                                    // Дубликат!
                 System.out.println();
                 System.out.println("A duplicate is found! Not saved!! ");
             }
-        } else {  // Хранилище переполненно, более 10000 записей
+        } else {                                        // Хранилище переполненно, более 10000 записей
             System.out.println("Storage overload! ");
         }
     }
@@ -94,7 +68,7 @@ public class ArrayStorage {
 
         public void delete(String uuid) {
         int index = getIndex(uuid);
-        if(index != -1) { //
+        if(index != -1) {
             storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
@@ -105,6 +79,7 @@ public class ArrayStorage {
             System.out.println("There is (" + uuid + ") no such resume! ");
         }
     }
+
 
         /**
          * @return array, contains only Resumes in storage (without null)
