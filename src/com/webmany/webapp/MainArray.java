@@ -2,6 +2,8 @@ package com.webmany.webapp;
 
 import com.webmany.webapp.model.Resume;
 import com.webmany.webapp.storage.ArrayStorage;
+import com.webmany.webapp.storage.SortedArrayStorage;
+import com.webmany.webapp.storage.Storage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,11 +14,21 @@ import java.io.InputStreamReader;
  * (just run, no need to understand)
  */
 public class MainArray {
-    private final static ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    private final static Storage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        Resume r;
+        Resume resume;
+
+        char[] alphabetA = ("acdepqrstxyz").toCharArray();
+        for (int i = 0; i < alphabetA.length; i++) {
+            resume = new Resume();
+            resume.setUuid(String.valueOf(alphabetA[i]));
+            ARRAY_STORAGE.save(resume);
+        }
+        printAll();
+
+
         while (true) {
             System.out.print("Введите одну из команд - (list | save uuid | update uuid | delete uuid | get uuid | clear | exit): ");
             String[] params = reader.readLine().trim().toLowerCase().split(" ");
@@ -36,15 +48,14 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    r = new Resume();
-                    r.setUuid(uuid);
-                    ARRAY_STORAGE.save(r);
-                    printAll();
+                    resume = new Resume();
+                    resume.setUuid(uuid);
+                    ARRAY_STORAGE.save(resume);
                     break;
                 case "update":
-                    r = new Resume();
-                    r.setUuid(uuid);
-                    ARRAY_STORAGE.update(r);
+                    resume = new Resume();
+                    resume.setUuid(uuid);
+                    ARRAY_STORAGE.update(resume);
                     break;
                 case "delete":
                     ARRAY_STORAGE.delete(uuid);
