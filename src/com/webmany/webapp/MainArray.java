@@ -19,11 +19,10 @@ public class MainArray {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Resume resume;
-
-        char[] alphabetA = ("acdepqrstxyz").toCharArray();
+        System.out.println(Integer.min(10, 60));
+        char[] alphabetA = ("acderstxyz").toCharArray();
         for (int i = 0; i < alphabetA.length; i++) {
-            resume = new Resume();
-            resume.setUuid(String.valueOf(alphabetA[i]));
+            resume = new Resume(String.valueOf(alphabetA[i]));
             ARRAY_STORAGE.save(resume);
         }
         printAll();
@@ -48,13 +47,11 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    resume = new Resume();
-                    resume.setUuid(uuid);
+                    resume = new Resume(uuid);
                     ARRAY_STORAGE.save(resume);
                     break;
                 case "update":
-                    resume = new Resume();
-                    resume.setUuid(uuid);
+                    resume = new Resume(uuid);
                     ARRAY_STORAGE.update(resume);
                     break;
                 case "delete":

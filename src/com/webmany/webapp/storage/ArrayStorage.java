@@ -2,20 +2,23 @@ package com.webmany.webapp.storage;
 
 import com.webmany.webapp.model.Resume;
 
-import java.util.Arrays;
-
 /**
  * Array based storage for Resumes
  */
 
 public class ArrayStorage extends AbstractArrayStorage {
 
-    protected void addSave (Resume resume) {
-        System.out.println("I am stay ArrayStorage");
-        storage[size] = resume;
-        size++;
+    @Override
+    protected void fillDeletedElement(int index) {
+        storage[index] = storage[size - 1];
     }
 
+    @Override
+    protected void insertElement(Resume resume, int index) {
+        storage[size] = resume;
+    }
+
+    @Override
     protected int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {

@@ -1,19 +1,23 @@
 package com.webmany.webapp.model;
 
+import java.util.UUID;
+
 /**
  * ru.javawebinar.basejava.model.Resume class
  */
 public class Resume implements Comparable<Resume>{
 
-    // Unique identifier
-    private String uuid;
+    private final String uuid;
+
+    public Resume() {
+        this(UUID.randomUUID().toString()); // 14:40
+    }
+    public Resume(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getUuid() {
         return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
     @Override

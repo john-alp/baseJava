@@ -9,27 +9,29 @@ import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
 
-    protected void addSave(Resume resume) {
-        int index = -(getIndex(resume.getUuid())) - 1;
-        System.out.println(resume.getUuid() + " " + getIndex(resume.getUuid()) + " index " + index);
-        System.arraycopy(storage, index, storage, index + 1, size - index);
-        storage[index] = resume;
-
-//        System.arrayCopy(from, fromIndex, to, toIndex, count);
-//
-//        storage       - массив, который копируем
-//        storage2      - массив в которой копируем
-//        index         - индекс в массиве from начиная с которого берем элементы для копирования
-//        index + 1     - индекс в массиве to начиная с которого вставляем элементы
-//        size - index  - количество элементов которые берем из массива from и вставляем в массив to
-//        Массив to должен иметь достаточный размер, чтобы в нем уместились все копируемые элементы.
-
+    @Override
+    protected void fillDeletedElement(int index) {
+        int numMoved = size - index -1;
+        if (numMoved > 0) {
+            System.arraycopy(storage, index + 1, storage, index , numMoved);
+        }
     }
 
+    @Override
+    protected void insertElement(Resume resume, int index) {
+        //      http://codereview.stackexchange.com/questions/36221/binary-search-for-inserting-in-array#answer-36239
+        int insertIdx = -index -1;
+        System.arraycopy(storage, insertIdx, storage, insertIdx + 1, size - insertIdx);
+        storage[insertIdx] = resume;
+    }
+    /*
+    *  getIndex - сохраняем наш обьект Резюме.
+    *  Массив не отсортированный, если запрашиваемый элемент не найден, то возвращается не просто отрицательное число,
+    *  а конкретный индекс, где это элемент должен быть.
+    */
     protected int getIndex(String uuid) {
-        Resume resume = new Resume();
-        resume.setUuid(uuid);
-        return Arrays.binarySearch(storage, 0, size, resume);
+        Resume searchKey = new Resume(uuid);
+        return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 
 }
