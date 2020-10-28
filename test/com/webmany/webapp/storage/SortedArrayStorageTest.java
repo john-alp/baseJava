@@ -6,10 +6,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-// import static org.junit.Assert.*;
 
-public class SortedArrayStorageTest {
-    private Storage storage = new SortedArrayStorage();
+public class SortedArrayStorageTest extends AbstractArrayStorageTest {
+    public SortedArrayStorageTest() {
+        super(new SortedArrayStorage());
+    }
+  /*  private Storage storage = new SortedArrayStorage();
 
     private static final String uuid_1 = "John";
     private static final String uuid_2 = "Tatiana";
@@ -70,5 +72,5 @@ public class SortedArrayStorageTest {
     public void getNotExist() throws Exception {
         storage.get("May");
     }
-
+*/
 }
