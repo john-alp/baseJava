@@ -2,6 +2,7 @@ package com.webmany.webapp;
 
 import com.webmany.webapp.model.Resume;
 import com.webmany.webapp.storage.ArrayStorage;
+import com.webmany.webapp.storage.ListStorage;
 import com.webmany.webapp.storage.SortedArrayStorage;
 import com.webmany.webapp.storage.Storage;
 
@@ -14,12 +15,12 @@ import java.io.InputStreamReader;
  * (just run, no need to understand)
  */
 public class MainArray {
-    private final static Storage ARRAY_STORAGE = new SortedArrayStorage();
+//    private final static Storage ARRAY_STORAGE = new SortedArrayStorage();
+    private final static Storage ARRAY_STORAGE = new ListStorage();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Resume resume;
-        System.out.println(Integer.min(10, 60));
         char[] alphabetA = ("acderstxyz").toCharArray();
         for (int i = 0; i < alphabetA.length; i++) {
             resume = new Resume(String.valueOf(alphabetA[i]));
