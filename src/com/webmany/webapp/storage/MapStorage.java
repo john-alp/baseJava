@@ -56,8 +56,7 @@ public class MapStorage extends AbstractStorage {
     @Override
     protected int getIndex(String uuid) {
         Resume resume = new Resume(uuid);
-        Set<Map.Entry<Integer,Resume>> entrySet = map.entrySet(); //mapTemp.entrySet();
-
+        Set<Map.Entry<Integer,Resume>> entrySet = map.entrySet(); // entrySet() возвращает набор ключ-значений
         for (Map.Entry<Integer, Resume> pair : entrySet) {
             if (resume.equals(pair.getValue())) {
                 return pair.getKey();// нашли наше значение и возвращаем  ключ

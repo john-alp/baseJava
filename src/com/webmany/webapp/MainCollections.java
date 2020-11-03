@@ -20,6 +20,8 @@ public class MainCollections {
         collection.add(RESUME_2);
         collection.add(RESUME_3);
 
+        Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
+
         Iterator iterator = collection.iterator();
         while (iterator.hasNext()) {
             Resume resume = (Resume) iterator.next();
