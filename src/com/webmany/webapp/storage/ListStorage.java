@@ -1,7 +1,5 @@
 package com.webmany.webapp.storage;
 
-import com.webmany.webapp.exception.ExistStorageException;
-import com.webmany.webapp.exception.NotExistStorageException;
 import com.webmany.webapp.model.Resume;
 
 import java.util.ArrayList;
@@ -9,9 +7,43 @@ import java.util.List;
 
 
 
-
 public class ListStorage extends AbstractStorage {
     private final List<Resume> list = new ArrayList<>();
+
+    @Override
+    protected Integer getSearchKey(String uuid) {
+        for(int i = 0; i < list.size(); i++) {
+            if(list.get(i).getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected boolean isExist(Object searchKey) {
+        return searchKey != null;
+    }
+
+    @Override
+    protected void doUpdate(Resume resume, Object searchKey) {
+        list.set((Integer) searchKey, resume);
+    }
+
+    @Override
+    protected void doSave(Resume resume, Object searchKey) {
+        list.add(resume);
+    }
+
+    @Override
+    protected Resume doGet(Object searchKey) {
+        return list.get((Integer) searchKey);
+    }
+
+    @Override
+    protected void doDelete(Object searchKey) {
+        list.remove(((Integer) searchKey).intValue());
+    }
 
     @Override
     public void clear() {
@@ -19,31 +51,8 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void save(Resume resume) {
-        if (list.contains(resume)) {
-            throw new ExistStorageException(resume.getUuid());
-        } else {
-            list.add(resume);
-        }
-    }
-
-    @Override
-    protected Resume getResume(int index) {
-        return list.get(index);
-        }
-
-        @Override
-    protected void deleteNow(int index) {
-        list.remove(index);
-    }
-
-    @Override
     public Resume[] getAll() {
-        Resume[] resumes = new Resume[list.size()];
-        for (int i = 0; i < list.size() ; i++) {
-            resumes[i] = list.get(i);
-        }
-        return resumes;
+        return list.toArray(new Resume[list.size()]);
     }
 
     @Override
@@ -51,14 +60,5 @@ public class ListStorage extends AbstractStorage {
         return list.size();
     }
 
-    @Override
-    protected void updateNow(int index, Resume resume) {
-        list.add(index, resume);
-    }
 
-    @Override
-    protected int getIndex(String uuid) {   // что странно, что хватило стринга
-        Resume resume = new Resume(uuid);
-        return list.indexOf(resume);
-    }
 }

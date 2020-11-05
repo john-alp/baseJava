@@ -17,6 +17,36 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
+    protected boolean isExist(Object searchKey) {
+        return false;
+    }
+
+    @Override
+    protected void doUpdate(Resume resume, Object searchKey) {
+
+    }
+
+    @Override
+    protected void doSave(Resume resume, Object searchKey) {
+
+    }
+
+    @Override
+    protected void doDelete(Object searchKey) {
+
+    }
+
+    @Override
+    protected Resume doGet(Object searchKey) {
+        return null;
+    }
+
+    @Override
+    protected Integer getSearchKey(String uuid) {
+        return null;
+    }
+
+    @Override
     public void save(Resume resume) {
         if(map.containsValue(resume)) {
             throw new ExistStorageException(resume.getUuid());
@@ -24,15 +54,7 @@ public class MapStorage extends AbstractStorage {
         map.put(map.size(), resume);
         }
 
-    @Override
-    protected Resume getResume(int index) {
-        return map.get(index);
-    }
 
-    @Override
-    protected void deleteNow(int index) {
-        map.remove(index);
-    }
 
     @Override
     public Resume[] getAll() {
@@ -48,20 +70,6 @@ public class MapStorage extends AbstractStorage {
         return map.size();
     }
 
-    @Override
-    protected void updateNow(int index, Resume resume) {
-        map.put(index, resume);
-    }
 
-    @Override
-    protected int getIndex(String uuid) {
-        Resume resume = new Resume(uuid);
-        Set<Map.Entry<Integer,Resume>> entrySet = map.entrySet(); // entrySet() возвращает набор ключ-значений
-        for (Map.Entry<Integer, Resume> pair : entrySet) {
-            if (resume.equals(pair.getValue())) {
-                return pair.getKey();// нашли наше значение и возвращаем  ключ
-            }
-        }
-        return -1;
-    }
+
 }

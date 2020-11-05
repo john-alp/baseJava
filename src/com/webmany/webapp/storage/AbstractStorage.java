@@ -1,43 +1,70 @@
-package com.webmany.webapp.storage;
+ package com.webmany.webapp.storage;
 
+import com.webmany.webapp.exception.ExistStorageException;
 import com.webmany.webapp.exception.NotExistStorageException;
 import com.webmany.webapp.model.Resume;
 
 
 public abstract class AbstractStorage implements Storage {
 
+    protected abstract boolean isExist(Object searchKey);
+
+    protected abstract void doUpdate(Resume resume, Object searchKey);
+
+    protected abstract void doSave(Resume resume, Object searchKey);
+
+    protected abstract void doDelete(Object searchKey);
+
+    protected abstract Resume doGet(Object searchKey);
+
+    protected abstract Integer getSearchKey(String uuid);
+
+
+
     public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index < 0) {    // если index меньше нуля (возвращает метод getIndex)
-            throw new NotExistStorageException(resume.getUuid());
-        } else {
-            updateNow(index, resume);
-        }
+        Object searchKey = getExistedSearchKey(resume.getUuid());
+        doUpdate(resume, searchKey);
+    }
+    public void save(Resume resume) {
+        Object searchKey = getNotExistedSearchKey(resume.getUuid());
+            doSave(resume, searchKey);
+    }
+
+    /* в Object присваеваем String? */
+
+    public void delete(String uuid) {
+        Object searchKey = getExistedSearchKey(uuid);
+        doDelete(searchKey);
     }
 
     public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        }
-        // return storage[index];
-        return getResume(index);
+       Object searchKey = getExistedSearchKey(uuid);
+       return doGet(searchKey);
     }
 
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
-           deleteNow(index);
+/*
+    если обьект существует, то возвращаем Object searchKey
+    иначе бросаем NotExistStorageException
+
+ */
+    private Object getExistedSearchKey(String uuid) {
+        Object searchKey = getSearchKey(uuid);
+        if (!isExist(searchKey)) {   // если не существует
+            throw  new NotExistStorageException(uuid);
         }
+        return searchKey;
     }
 
-    protected abstract void updateNow(int index, Resume resume);
+    private Object getNotExistedSearchKey(String uuid) {
+        Object searchKey = getSearchKey(uuid);
+        if (isExist(searchKey)) {
+            throw  new ExistStorageException(uuid);
+        }
+        return searchKey;
+    }
 
-    protected abstract int getIndex(String uuid);
 
-    protected abstract Resume getResume(int index);
 
-    protected abstract void deleteNow(int index);
+
+
 }
