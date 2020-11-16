@@ -50,18 +50,15 @@ public abstract class AbstractStorageTest {
     }
 
 
-
-
     @Test
     public void size() {
-        assertEquals(3, storage.size());
+        assertSize(3);
     }
 
     @Test
-
     public void clear() throws Exception {
         storage.clear();
-        assertEquals(0, storage.size());
+        assertSize(0);
     }
 
     @Test
@@ -88,12 +85,9 @@ public abstract class AbstractStorageTest {
     @Test
     public void save() throws Exception {
         storage.save(RESUME_4);
-        assertEquals(4, storage.size());
-        assertEquals(RESUME_4, storage.get(RESUME_4.getUuid())); // наверное, такое возможно из-за переопределенного equals
-//        Resume resume = new Resume("Test");
-//        storage.save(resume);
-//        Assert.assertSame(resume, storage.get("Test")); // assertSame - ожидаемый и полученный объекты это один и тот же объект.
-
+        assertSize(4);
+        assertGet(RESUME_4);
+        // assertEquals(RESUME_4, storage.get(RESUME_4.getUuid())); // наверное, такое возможно из-за переопределенного equals
     }
 
     @Test(expected = ExistStorageException.class)  // здесь ожидаем ексепшенс о существующем обьекте
@@ -106,19 +100,28 @@ public abstract class AbstractStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void delete() throws Exception {
         storage.delete(UUID_1);
-        assertEquals(2, storage.size());
+        assertSize(2);
         storage.get(UUID_1);  // запрашиваем удаленный обьект по уиду, так как он удален получаем ексепшен
     }
 
     @Test
     public void get() throws Exception {
-        assertEquals(RESUME_1, storage.get(RESUME_1.getUuid()));
-        assertEquals(RESUME_2, storage.get(RESUME_2.getUuid()));
-        assertEquals(RESUME_3, storage.get(RESUME_3.getUuid()));
+       assertGet(RESUME_1);
+       assertGet(RESUME_2);
+       assertGet(RESUME_3);
+        // assertEquals(RESUME_1, storage.get(RESUME_1.getUuid()));
     }
 
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() throws Exception {
         storage.get("May");
+    }
+
+    private void assertSize (int size) {
+        assertEquals(size, storage.size());
+    }
+
+    private void assertGet (Resume resume) {
+        assertEquals(resume, storage.get(resume.getUuid()));
     }
 }

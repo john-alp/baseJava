@@ -17,7 +17,7 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Resume doGet(Object searchKey);
 
-    protected abstract Integer getSearchKey(String uuid);
+    protected abstract Object getSearchKey(String uuid);
 
 
 
@@ -29,8 +29,6 @@ public abstract class AbstractStorage implements Storage {
         Object searchKey = getNotExistedSearchKey(resume.getUuid());
             doSave(resume, searchKey);
     }
-
-    /* в Object присваеваем String? */
 
     public void delete(String uuid) {
         Object searchKey = getExistedSearchKey(uuid);

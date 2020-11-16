@@ -1,10 +1,7 @@
 package com.webmany.webapp;
 
 import com.webmany.webapp.model.Resume;
-import com.webmany.webapp.storage.ArrayStorage;
-import com.webmany.webapp.storage.ListStorage;
-import com.webmany.webapp.storage.SortedArrayStorage;
-import com.webmany.webapp.storage.Storage;
+import com.webmany.webapp.storage.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +13,8 @@ import java.io.InputStreamReader;
  */
 public class MainArray {
 //    private final static Storage ARRAY_STORAGE = new SortedArrayStorage();
-    private final static Storage ARRAY_STORAGE = new ListStorage();
+//    private final static Storage ARRAY_STORAGE = new ListStorage();
+    private final static Storage ARRAY_STORAGE = new MapStorage();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));

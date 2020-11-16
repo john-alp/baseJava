@@ -1,8 +1,5 @@
 package com.webmany.webapp.storage;
 
-
-import com.webmany.webapp.exception.ExistStorageException;
-import com.webmany.webapp.exception.NotExistStorageException;
 import com.webmany.webapp.exception.StorageException;
 import com.webmany.webapp.model.Resume;
 
@@ -14,6 +11,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected final Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
+    protected abstract void fillDeletedElement(int index);
+
+    protected abstract void insertElement(Resume resume, int index);
+
+
     @Override
     public void clear() {      // удалям все данные из хранилища
         Arrays.fill(storage, 0, size, null);
@@ -24,7 +26,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected void doUpdate(Resume resume, Object searchKey) {
         storage[(Integer) searchKey] = resume;
     }
-
 
     @Override
     protected void doSave(Resume resume, Object searchKey) {
@@ -42,7 +43,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         storage[size - 1] = null;
         size--;
     }
-
 
     @Override
     protected Resume doGet(Object index) {
@@ -62,9 +62,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return (Integer) index >= 0;
     }
 
-    protected abstract void fillDeletedElement(int index);
-
-    protected abstract void insertElement(Resume resume, int index);
 
 
 }
