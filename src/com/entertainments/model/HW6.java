@@ -6,7 +6,7 @@ import static javax.swing.UIManager.put;
 
 public class HW6 {
 
-        static Map<Integer, Set<Integer>> subSets = new HashMap<Integer, Set<Integer>>();
+        static Map<Integer, Set<Integer>> subSets = new HashMap<>();
 
         public static void put(Integer key, int value)
         {
