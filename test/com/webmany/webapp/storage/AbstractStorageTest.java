@@ -2,24 +2,23 @@ package com.webmany.webapp.storage;
 
 import com.webmany.webapp.exception.ExistStorageException;
 import com.webmany.webapp.exception.NotExistStorageException;
-import com.webmany.webapp.exception.StorageException;
 import com.webmany.webapp.model.Resume;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Iterator;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
     protected final Storage storage;
 
-    private static final String UUID_1 = "Daria";
-    private static final String UUID_2 = "John";
-    private static final String UUID_3 = "Tatiana";
-    private static final String UUID_4 = "Barsik";
+    private static final String UUID_1 = "uuid1";
+    private static final String UUID_2 = "uuid2";
+    private static final String UUID_3 = "uuid3";
+    private static final String UUID_4 = "uuid4";
 
     private static final Resume RESUME_1;
     private static final Resume RESUME_2;
@@ -27,12 +26,12 @@ public abstract class AbstractStorageTest {
     private static final Resume RESUME_4;
 
     static {
-        RESUME_1 = new Resume(UUID_1);
-        RESUME_2 = new Resume(UUID_2);
-        RESUME_3 = new Resume(UUID_3);
-        RESUME_4 = new Resume(UUID_4);
+        RESUME_1 = new Resume(UUID_1, "Name1");
+        RESUME_2 = new Resume(UUID_2, "Name2");
+        RESUME_3 = new Resume(UUID_3, "Name3");
+        RESUME_4 = new Resume(UUID_4, "Name4");
     }
-    public AbstractStorageTest(Storage storage) {  // protected - этот конструктор могут вызывать только наследники
+    protected AbstractStorageTest(Storage storage) {  // protected - этот конструктор могут вызывать только наследники
         this.storage = storage;
     }
 
@@ -63,7 +62,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() throws Exception {
-        Resume newResume = new Resume(UUID_1);
+        Resume newResume = new Resume(UUID_1, "NewName");
         storage.update(newResume);
         assertTrue(newResume == storage.get(UUID_1));
     }
@@ -74,12 +73,10 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void getAll() throws Exception {
-        Resume[] resumes = storage.getAll();    // создаем массив и копируем в него наш storage
-        assertEquals(3, storage.size());  // должно быть 3 элемента
-        assertEquals(RESUME_1, resumes[0]);
-        assertEquals(RESUME_2, resumes[1]);
-        assertEquals(RESUME_3, resumes[2]);
+    public void getAllSorted() throws Exception {
+        List<Resume> list = storage.getAllSorted();
+        assertEquals(3, list.size());  // должно быть 3 элемента
+        assertEquals(list, Arrays.asList(RESUME_1, RESUME_2, RESUME_3));
     }
 
     @Test
@@ -99,7 +96,7 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void delete() throws Exception {
-        storage.delete(UUID_1 r);
+        storage.delete(UUID_1);
         assertSize(2);
         storage.get(UUID_1);  // запрашиваем удаленный обьект по уиду, так как он удален получаем ексепшен
     }

@@ -4,6 +4,7 @@ import com.webmany.webapp.exception.StorageException;
 import com.webmany.webapp.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
@@ -49,8 +50,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return storage[(Integer) index];
     }
 
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);  // возвращаем копию storage
+    @Override
+    public List<Resume> doCopyAll() {
+        return Arrays.asList(Arrays.copyOf(storage, size));  // возвращаем копию storage
     }
 
     public int size() {       // возвращаем размер массива

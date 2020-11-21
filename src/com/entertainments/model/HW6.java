@@ -1,37 +1,28 @@
 package com.entertainments.model;
 
-import java.util.*;
 
-import static javax.swing.UIManager.put;
+    class HW6<T1, T2> {
+        T1 object1;
+        T2 object2;
 
-public class HW6 {
-
-        static Map<Integer, Set<Integer>> subSets = new HashMap<>();
-
-        public static void put(Integer key, int value)
-        {
-            if(!subSets.containsKey(key)) subSets.put(key, new HashSet<Integer>());
-            subSets.get(key).add(value);
+        HW6(T1 one, T2 two) {
+            object1 = one;
+            object2 = two;
         }
 
-        public static Collection<Integer> getRandomKeys()
-        {
-            List<Integer> vals = new ArrayList<Integer>();
-            for(int i=0; i<(int)(Math.random()*500); i++)
-            {
-                vals.add((int)(Math.random()*1000));
-            }
-            return vals;
+        public T1 getFirst() {
+            return object1;
         }
 
-        public static void main(String[] args)
-        {
-            new Scanner(System.in).nextLine();
-            for(Integer i=0; i<100000; i++)
-            {
-                for(Integer key: getRandomKeys())
-                    put(key, i);
-            }
-            new Scanner(System.in).nextLine();
+        public T2 getSecond() {
+            return object2;
         }
-}
+    }
+
+    class Test3 {
+        public static void main(String[] args) {
+            HW6<Integer, String> pair = new HW6<Integer, String>(6,
+                    " Apr");
+            System.out.println(pair.getFirst() + pair.getSecond());
+        }
+    }

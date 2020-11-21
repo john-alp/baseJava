@@ -2,36 +2,35 @@ package com.webmany.webapp.storage;
 
 import com.webmany.webapp.model.Resume;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-public class MapStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage {
     Map<String, Resume> map = new HashMap<>();
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        return map.containsKey(searchKey);
+    protected boolean isExist(Object uuid) {
+        return map.containsKey((String)uuid);
     }
 
     @Override
-    protected void doUpdate(Resume resume, Object searchKey) {
-         map.put((String) searchKey, resume);
+    protected void doUpdate(Resume resume, Object uuid) {
+         map.put((String) uuid, resume);
        // map.replace((String) searchKey, resume);
     }
 
     @Override
-    protected void doSave(Resume resume, Object searchKey) {
-        map.put((String) searchKey, resume);
+    protected void doSave(Resume resume, Object uuid) {
+        map.put((String) uuid, resume);
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
-        map.remove(searchKey);
+    protected void doDelete(Object uuid) {
+        map.remove(uuid);
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
-        return map.get(searchKey);
+    protected Resume doGet(Object uuid) {
+        return map.get(uuid);
     }
 
     @Override
@@ -53,8 +52,9 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return map.values().toArray(new Resume[size()]);
+    public List<Resume> doCopyAll() {
+        //return Collections.emptyList();
+        return new ArrayList<>(map.values());
     }
 
     @Override

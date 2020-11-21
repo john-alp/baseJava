@@ -4,8 +4,11 @@ import com.webmany.webapp.exception.ExistStorageException;
 import com.webmany.webapp.exception.NotExistStorageException;
 import com.webmany.webapp.model.Resume;
 
+import java.util.Collections;
+import java.util.List;
 
-public abstract class AbstractStorage implements Storage {
+
+ public abstract class AbstractStorage implements Storage {
 
     protected abstract boolean isExist(Object searchKey);
 
@@ -19,12 +22,14 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Object getSearchKey(String uuid);
 
+     protected abstract List<Resume> doCopyAll();
 
 
-    public void update(Resume resume) {
+     public void update(Resume resume) {
         Object searchKey = getExistedSearchKey(resume.getUuid());
         doUpdate(resume, searchKey);
     }
+
     public void save(Resume resume) {
         Object searchKey = getNotExistedSearchKey(resume.getUuid());
             doSave(resume, searchKey);
@@ -39,12 +44,12 @@ public abstract class AbstractStorage implements Storage {
        Object searchKey = getExistedSearchKey(uuid);
        return doGet(searchKey);
     }
-
 /*
     если обьект существует, то возвращаем Object searchKey
     иначе бросаем NotExistStorageException
 
  */
+
     private Object getExistedSearchKey(String uuid) {
         Object searchKey = getSearchKey(uuid);
         if (!isExist(searchKey)) {   // если не существует
@@ -61,8 +66,10 @@ public abstract class AbstractStorage implements Storage {
         return searchKey;
     }
 
-
-
-
-
-}
+     @Override
+     public List<Resume> getAllSorted() {
+        List<Resume> list = doCopyAll();
+         Collections.sort(list);
+         return list;
+     }
+ }
