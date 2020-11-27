@@ -4,37 +4,37 @@ import com.webmany.webapp.model.Resume;
 
 import java.util.*;
 
-public class MapUuidStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage<String> {
     Map<String, Resume> map = new HashMap<>();
 
     @Override
-    protected boolean isExist(Object uuid) {
-        return map.containsKey((String)uuid);
+    protected boolean isExist(String uuid) {
+        return map.containsKey(uuid);
     }
 
     @Override
-    protected void doUpdate(Resume resume, Object uuid) {
-         map.put((String) uuid, resume);
+    protected void doUpdate(Resume resume, String uuid) {
+         map.put(uuid, resume);
        // map.replace((String) searchKey, resume);
     }
 
     @Override
-    protected void doSave(Resume resume, Object uuid) {
-        map.put((String) uuid, resume);
+    protected void doSave(Resume resume, String uuid) {
+        map.put(uuid, resume);
     }
 
     @Override
-    protected void doDelete(Object uuid) {
+    protected void doDelete(String uuid) {
         map.remove(uuid);
     }
 
     @Override
-    protected Resume doGet(Object uuid) {
+    protected Resume doGet(String uuid) {
         return map.get(uuid);
     }
 
     @Override
-    protected Object getSearchKey(String uuid) {
+    protected String getSearchKey(String uuid) {
        return uuid;
 
         // return map.get(uuid).equals(uuid);
