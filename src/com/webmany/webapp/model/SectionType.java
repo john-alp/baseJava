@@ -10,6 +10,7 @@ public enum SectionType {
 
     private String title;
 
+
     SectionType(String title) {
         this.title = title;
     }
