@@ -3,10 +3,6 @@ package com.webmany.webapp.model;
 import java.util.List;
 import java.util.Objects;
 
-
-
-
-
 public class ListSection extends Section {
     private final List<String> items;
 

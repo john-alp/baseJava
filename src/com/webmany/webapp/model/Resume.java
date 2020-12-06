@@ -1,9 +1,6 @@
 package com.webmany.webapp.model;
 
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * ru.javawebinar.basejava.model.Resume class
@@ -33,12 +30,21 @@ public class Resume implements Comparable<Resume> {
         return uuid;
     }
 
+
     public String getContact(ContactType type) {
         return contacts.get(type);
     }
 
     public Section getSection(SectionType type) {
         return sections.get(type);
+    }
+
+    public void setContacts(ContactType type, String value) {
+        contacts.put(type, value);
+    }
+
+    public void setSections(SectionType sectionType, Section section) {
+        sections.put(sectionType, section);
     }
 
     @Override
