@@ -20,10 +20,7 @@ public class Link {
         return url;
     }
 
-    @Override
-    public String toString() {
-        return "Link(" + name + ',' + url + ')';
-    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -42,5 +39,10 @@ public class Link {
         int result = name.hashCode();
         result = 31 * result + (url != null ? url.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Link(" + name + ',' + url + ')';
     }
 }

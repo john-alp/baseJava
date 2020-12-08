@@ -12,7 +12,7 @@ public class ResumeTestData {
 
         Resume resume = new Resume("109542", "JohnSilver");
 
-        resume.setContacts(ContactType.PHONE, "3050");
+        resume.setContacts(ContactType.PHONE, "556672233322");
         resume.setContacts(ContactType.MAIL, "john1tanya@jmail.com");
         resume.setContacts(ContactType.SKYPE,"skype");
         resume.setContacts(ContactType.GITHUB,"john-alp");
@@ -21,7 +21,7 @@ public class ResumeTestData {
 
 
         Organization organization = new Organization("John",
-                "www.yandex.ru",
+                "www.webmany.ru",
                 LocalDate.of(19, 10, 19),
                 LocalDate.of(19, 11, 20),
                 "engineer",
@@ -30,11 +30,28 @@ public class ResumeTestData {
         List<Organization> jobs = new ArrayList<>();
         jobs.add(organization);
 
-        List<Organization> universitets = new ArrayList<>();
-        universitets.add(organization);
+    //    List<Organization> universitets = new ArrayList<>();
+    //    universitets.add(organization);
 
-        resume.setSections(SectionType.OBJECTIVE, new TextSection("developer"));
+        List<String> sections = new ArrayList<>();
+        sections.add("Great!");
+
+        resume.setSections(SectionType.OBJECTIVE, new TextSection("Developer"));
         resume.setSections(SectionType.EXPERIENCE, new OrganizationSection(jobs));
+        resume.setSections(SectionType.PERSONAL,
+                new TextSection("Smart, handsome, moderately well-fed. In the full dawn of strength and years"));
+        resume.setSections(SectionType.EDUCATION, new TextSection("Three classes of a parochial school"));
+        resume.setSections(SectionType.ACHIEVEMENT, new ListSection(sections));
+
+        System.out.println(resume);
+
+//        for(SectionType sectionType : SectionType.values()) {
+//            System.out.println(sectionType);
+//        }
+//        System.out.println();
+//        for(ContactType contactType : ContactType.values()) {
+//            System.out.println(contactType);
+//        }
 
     }
 }

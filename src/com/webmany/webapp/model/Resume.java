@@ -1,18 +1,14 @@
 package com.webmany.webapp.model;
 
-import java.util.*;
+ import java.util.*;
 
-/**
- * ru.javawebinar.basejava.model.Resume class
- */
+
 public class Resume implements Comparable<Resume> {
 
     private final String uuid;
-
     private final String fullName;
 
     private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-
     private final Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
@@ -30,7 +26,6 @@ public class Resume implements Comparable<Resume> {
         return uuid;
     }
 
-
     public String getContact(ContactType type) {
         return contacts.get(type);
     }
@@ -46,6 +41,8 @@ public class Resume implements Comparable<Resume> {
     public void setSections(SectionType sectionType, Section section) {
         sections.put(sectionType, section);
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -68,7 +65,17 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public String toString() {
-        return uuid + '(' + fullName + ')';
+        System.out.println(uuid + " " + fullName);
+        System.out.println();
+        for (Map.Entry<ContactType, String> pair2 : contacts.entrySet()) {
+            System.out.println(pair2);
+        }
+        System.out.println();
+        for (Map.Entry<SectionType, Section> pair : sections.entrySet()){
+            System.out.println(pair);
+        }
+      //  return uuid + '(' + fullName + ')';
+        return " ";
     }
 
     @Override

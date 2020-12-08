@@ -10,15 +10,11 @@ public class OrganizationSection extends Section {
         Objects.requireNonNull(organizations, "organizations must not be null");
         this.organizations = organizations;
     }
-
-    @Override
-    public String toString() {
-        return  organizations.toString();
-    }
-
     public List<Organization> getOrganizationSection() {
         return organizations;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -33,5 +29,10 @@ public class OrganizationSection extends Section {
     @Override
     public int hashCode() {
         return organizations.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return  organizations.toString();
     }
 }

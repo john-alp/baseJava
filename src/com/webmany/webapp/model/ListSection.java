@@ -1,5 +1,6 @@
 package com.webmany.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,14 +12,15 @@ public class ListSection extends Section {
         this.items = items;
     }
 
+    public ListSection(String... items) {
+        this(Arrays.asList(items));
+    }
+
     public List<String> getItems() {
         return items;
     }
 
-    @Override
-    public String toString() {
-        return items.toString();
-    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -33,5 +35,10 @@ public class ListSection extends Section {
     @Override
     public int hashCode() {
         return items.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return items.toString();
     }
 }

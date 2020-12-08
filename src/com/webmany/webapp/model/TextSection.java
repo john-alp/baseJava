@@ -10,10 +10,7 @@ public class TextSection extends Section {
         this.content = content;
     }
 
-    @Override
-    public String toString() {
-        return content;
-    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -28,5 +25,10 @@ public class TextSection extends Section {
     @Override
     public int hashCode() {
         return content.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return content;
     }
 }
