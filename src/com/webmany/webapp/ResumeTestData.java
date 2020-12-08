@@ -1,8 +1,10 @@
 package com.webmany.webapp;
 
 import com.webmany.webapp.model.*;
+import com.webmany.webapp.util.DateUtil;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class ResumeTestData {
         resume.setContacts(ContactType.HOME_PAGE, "www.john1tanya");
         resume.setContacts(ContactType.LINKEDIN, "linkedIn");
 
+        DateUtil.of(15, Month.of(2));
 
         Organization organization = new Organization("John",
                 "www.webmany.ru",
