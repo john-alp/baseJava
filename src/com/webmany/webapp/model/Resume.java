@@ -14,7 +14,6 @@ public class Resume implements Comparable<Resume> {
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
     }
-
     public Resume(String uuid, String fullName) {
         Objects.requireNonNull(uuid, "uuid must not be null");
         Objects.requireNonNull(fullName, "fullName must not be null");
@@ -29,15 +28,14 @@ public class Resume implements Comparable<Resume> {
     public String getContact(ContactType type) {
         return contacts.get(type);
     }
-
     public Section getSection(SectionType type) {
         return sections.get(type);
     }
 
+
     public void setContacts(ContactType type, String value) {
         contacts.put(type, value);
     }
-
     public void setSections(SectionType sectionType, Section section) {
         sections.put(sectionType, section);
     }
@@ -63,19 +61,31 @@ public class Resume implements Comparable<Resume> {
         return result;
     }
 
+//    @Override
+//    public String toString() {
+//        System.out.println(uuid + " " + fullName);
+//        System.out.println();
+//        for (Map.Entry<ContactType, String> pair2 : contacts.entrySet()) {
+//            System.out.println(pair2);
+//        }
+//        System.out.println();
+//        for (Map.Entry<SectionType, Section> pair : sections.entrySet()){
+//            System.out.println(pair);
+//        }
+//      //  return uuid + '(' + fullName + ')';
+//        return " ";
+//    }
+
     @Override
     public String toString() {
-        System.out.println(uuid + " " + fullName);
-        System.out.println();
-        for (Map.Entry<ContactType, String> pair2 : contacts.entrySet()) {
-            System.out.println(pair2);
+        System.out.println(uuid + " (" + fullName + ')');
+        for (Map.Entry<ContactType, String> pair : contacts.entrySet()) {
+            System.out.println(pair.getKey().getTitle() + ": " + pair.getValue());
         }
-        System.out.println();
-        for (Map.Entry<SectionType, Section> pair : sections.entrySet()){
-            System.out.println(pair);
+        for (Map.Entry<SectionType, Section> pair : sections.entrySet()) {
+            System.out.println(pair.getKey().getTitle() + ": " + pair.getValue());
         }
-      //  return uuid + '(' + fullName + ')';
-        return " ";
+        return "";
     }
 
     @Override
