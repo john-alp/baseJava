@@ -14,15 +14,11 @@ import java.util.logging.Logger;
      private static final Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
 
      protected abstract SK getSearchKey(String uuid);
-
-    protected abstract boolean isExist(SK searchKey);
+     protected abstract boolean isExist(SK searchKey);
 
     protected abstract void doUpdate(Resume resume, SK searchKey);
-
     protected abstract void doSave(Resume resume, SK searchKey);
-
     protected abstract void doDelete(SK searchKey);
-
     protected abstract Resume doGet(SK searchKey);
 
      protected abstract List<Resume> doCopyAll();
