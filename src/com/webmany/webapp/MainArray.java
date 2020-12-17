@@ -18,12 +18,12 @@ import java.util.List;
 public class MainArray {
 //    private final static Storage ARRAY_STORAGE = new SortedArrayStorage();
 //    private final static Storage ARRAY_STORAGE = new ListStorage();
-    private final static Storage ARRAY_STORAGE = new MapUuidStorage();
+      private final static Storage ARRAY_STORAGE = new MapUuidStorage();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Resume resume;
-        char[] alphabetA = ("acderstxyz").toCharArray();
+        char[] alphabetA = ("acd").toCharArray();
         for (int i = 0; i < alphabetA.length; i++) {
             resume = new Resume(String.valueOf(alphabetA[i]), "TestName" + i);
             ARRAY_STORAGE.save(resume);
