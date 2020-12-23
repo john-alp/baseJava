@@ -1,25 +1,30 @@
 package com.webmany.webapp;
 
 
+import com.webmany.webapp.model.Resume;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MainFile {
-    public static void main(String[] args) {
-        String path = "./src/.";
+    public static void main(String[] args) throws IOException {
+        //   String path = "./src/.";
+        final String path = "./com/webmany/webapp/storage/storage";
         String dir = "./src/.";
-        recurs(path);
+        //recurs(path);
+        //printDirectoryDeeply(new File(dir));
 
-    printDirectoryDeeply(new File(dir));
+
+
     }
+
+
+
 
     private static void recurs(String path) {
         File dir = new File(path);
@@ -59,7 +64,7 @@ public class MainFile {
         //String filePath = "./.gitignore";
        // String filePath = "C:\\project\\basejava\\src\\com\\webmany\\webapp\\MainArray";
 
-        String filePath = "./test1";
+        String filePath = "./storaga";
         File file = new File(filePath);
         try {
             System.out.println(file.getCanonicalFile() + " Kroko");

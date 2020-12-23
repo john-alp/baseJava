@@ -5,7 +5,7 @@ import java.io.*;
 public class TextToFile {
     public static void main(String[] args){
 
-        File file1 = new File("test1.txt");
+        File file1 = new File("storaga.txt");
         File file2 = new File("test2.txt");
 
         try(BufferedWriter bufferedWriter= new BufferedWriter(new FileWriter(file1))) {

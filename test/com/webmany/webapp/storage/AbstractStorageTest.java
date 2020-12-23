@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
+    protected static final File STORAGE_DIR = new File("C:\\project\\basejava\\src\\com\\webmany\\webapp\\storage\\fileStorage");
     protected final Storage storage;
 
     private static final String UUID_1 = "uuid1";
@@ -35,7 +37,7 @@ public abstract class AbstractStorageTest {
         R1.setContacts(ContactType.MAIL, "mail1@ya.ru");
         R1.setContacts(ContactType.PHONE, "11111");
         R1.setSections(SectionType.OBJECTIVE, new TextSection("Objective1"));
-        R1.setSections(SectionType.PERSONAL, new TextSection("Personal data"));
+         R1.setSections(SectionType.PERSONAL, new TextSection("Personal data"));
         R1.setSections(SectionType.ACHIEVEMENT, new ListSection("Achivment11", "Achivment12", "Achivment13"));
         R1.setSections(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "JavaScript"));
         R1.setSections(SectionType.EXPERIENCE,
@@ -65,7 +67,6 @@ public abstract class AbstractStorageTest {
 
     @Before
     public void setUp() throws Exception {
-        storage.clear();
         storage.save(R1);
         storage.save(R2);
         storage.save(R3);
@@ -92,7 +93,7 @@ public abstract class AbstractStorageTest {
     public void update() throws Exception {
         Resume newResume = new Resume(UUID_1, "NewName");
         storage.update(newResume);
-        assertTrue(newResume == storage.get(UUID_1));
+        assertTrue(newResume.equals(storage.get(UUID_1)));
     }
 
     @Test(expected = NotExistStorageException.class)
