@@ -25,4 +25,5 @@ public class ObjectStreamStorage extends AbstractFileStorage {
             throw new StorageException("Error read resume", null, e);
         }
     }
+
 }

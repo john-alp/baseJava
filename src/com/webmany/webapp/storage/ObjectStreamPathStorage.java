@@ -5,8 +5,8 @@ import com.webmany.webapp.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamStorage extends AbstractFileStorage {
-    protected ObjectStreamStorage(File directory) {
+public class ObjectStreamPathStorage extends AbstractPathStorage {
+    protected ObjectStreamPathStorage(String directory) {
         super(directory);
     }
 

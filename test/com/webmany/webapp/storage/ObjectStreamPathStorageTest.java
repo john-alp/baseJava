@@ -1,8 +1,8 @@
-package com.webmany.webapp.storage;
+ package com.webmany.webapp.storage;
 
-public class ObjectStreamStorageTest extends AbstractStorageTest {
+public class ObjectStreamPathStorageTest extends AbstractStorageTest {
 
-    public ObjectStreamStorageTest() {
-        super(new ObjectStreamStorage(STORAGE_DIR));
+    public ObjectStreamPathStorageTest() {
+        super(new ObjectStreamPathStorage(STORAGE_DIR.getAbsolutePath()));
     }
 }

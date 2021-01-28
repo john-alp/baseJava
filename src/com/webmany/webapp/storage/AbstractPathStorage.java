@@ -13,13 +13,13 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public abstract class AbstractPathFileStorage extends AbstractStorage<Path> {
+public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     private Path directory;
 
     protected abstract void doWrite(Resume resume, OutputStream os) throws IOException;
     protected abstract Resume doRead(InputStream is) throws IOException;
 
-    protected AbstractPathFileStorage(String dir) {
+    protected AbstractPathStorage(String dir) {
         this.directory = Paths.get(dir);
         Objects.requireNonNull(directory, "directory must not be null");
         if (!Files.isDirectory(directory) || !Files.isWritable(directory)) {

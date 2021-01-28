@@ -37,7 +37,7 @@ public abstract class AbstractStorageTest {
         R1.setContacts(ContactType.MAIL, "mail1@ya.ru");
         R1.setContacts(ContactType.PHONE, "11111");
         R1.setSections(SectionType.OBJECTIVE, new TextSection("Objective1"));
-         R1.setSections(SectionType.PERSONAL, new TextSection("Personal data"));
+        R1.setSections(SectionType.PERSONAL, new TextSection("Personal data"));
         R1.setSections(SectionType.ACHIEVEMENT, new ListSection("Achivment11", "Achivment12", "Achivment13"));
         R1.setSections(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "JavaScript"));
         R1.setSections(SectionType.EXPERIENCE,
@@ -60,22 +60,22 @@ public abstract class AbstractStorageTest {
     }
 
 
-
     protected AbstractStorageTest(Storage storage) {  // protected - этот конструктор могут вызывать только наследники
         this.storage = storage;
     }
 
     @Before
     public void setUp() throws Exception {
+        storage.clear();
         storage.save(R1);
         storage.save(R2);
         storage.save(R3);
     }
 
-    @After
-    public void tearDown() {
-        storage.clear();
-    }
+//    @After
+//    public void tearDown() {
+//        storage.clear();
+//    }
 
 
     @Test
@@ -122,7 +122,6 @@ public abstract class AbstractStorageTest {
     }
 
 
-
     @Test(expected = NotExistStorageException.class)
     public void delete() throws Exception {
         storage.delete(UUID_1);
@@ -132,9 +131,9 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void get() throws Exception {
-       assertGet(R1);
-       assertGet(R2);
-       assertGet(R3);
+        assertGet(R1);
+        assertGet(R2);
+        assertGet(R3);
         // assertEquals(RESUME_1, storage.get(RESUME_1.getUuid()));
     }
 
@@ -143,11 +142,11 @@ public abstract class AbstractStorageTest {
         storage.get("May");
     }
 
-    private void assertSize (int size) {
+    private void assertSize(int size) {
         assertEquals(size, storage.size());
     }
 
-    private void assertGet (Resume resume) {
+    private void assertGet(Resume resume) {
         assertEquals(resume, storage.get(resume.getUuid()));
     }
 }
